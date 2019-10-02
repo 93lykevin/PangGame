@@ -36,7 +36,7 @@ export default class Pang {
   addPlayer() {
     const player = new Player({ 
       pang: this,
-      pos: [Pang.DIM_X/2, Pang.DIM_Y - 100] 
+      pos: [Pang.DIM_X/2, Pang.DIM_Y - 49] 
     })
     this.add(player);
     
@@ -55,7 +55,26 @@ export default class Pang {
       vel[1] *=-1
     }
     return vel;
-  }
+  };
+  
+  bounds(pos, vel, radius) {
+    if (pos[0] + radius >= Pang.DIM_X) {
+      // vel[0] = 0;
+      pos[0] = Pang.DIM_X - radius - 1;
+    } else if (pos[0] - radius <= 0) {
+      // vel[0] = 0;
+      pos[0] = radius + 1;
+    } else if (pos[1] + radius >= Pang.DIM_Y) {
+      // vel[1] = 0;
+      pos[1] = Pang.DIM_Y - radius - 1;
+    } else if (pos[1] - radius <= 0) {
+      // vel[1] = 0;
+      pos[1] = radius + 1
+    } 
+
+    return pos;
+    // return vel, pos;
+  };
 
   checkCollisions() {
     const allObjects = this.allObjects();
@@ -81,6 +100,12 @@ export default class Pang {
     })
   }
 
+  isOutOfBounds(pos, radius) {
+    if (pos[0] - radius <= 0 || pos[0] + radius >= Pang.DIM_X) return true;
+    if (pos[1] - radius <= 0 || pos[1] + radius >= Pang.DIM_Y) return true;
+    return false;
+  }
+
   moveObjects() {
     this.allObjects().forEach(object => {
       if (object instanceof Player ){
@@ -98,11 +123,11 @@ export default class Pang {
   remove(object) {
     if (object instanceof Bubble) {
       this.bubbles.splice(this.bubbles.indexOf(object), 1);
-    } //else if (object instanceof Player) {
-    //   this.players.splice(this.players.index(object), 1);
-    // } else if (object instanceof Bullet) {
-    //   this.bullets.splice(this.bullets.index(object), 1);
-    // } 
+    } else if (object instanceof Player) {
+      this.players.splice(this.players.indexOf(object), 1);
+    } else if (object instanceof Bullet) {
+      this.bullets.splice(this.bullets.indexOf(object), 1);
+    } 
   }
 
   step() {

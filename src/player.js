@@ -16,14 +16,15 @@ export default class Player extends MovingObject {
   }
 
   fireBullet(){
-    const bullet = new Bullet({
-      pos: [this.pos[0], this.pos[1] - Player.RADIUS],
-      vel: [0, -3],
-      color: 'pink',
-      pang: this.pang
-    });
-
-    this.pang.add(bullet);
+    if (this.pang.bullets.length === 0) {
+      const bullet = new Bullet({
+        pos: [this.pos[0], this.pos[1] + Player.RADIUS],
+        vel: [0, -10],
+        color: 'pink',
+        pang: this.pang
+      });
+      this.pang.add(bullet);
+    }
   }
 
 };

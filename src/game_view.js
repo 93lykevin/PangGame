@@ -27,8 +27,8 @@ export default class GameView{
 }
 
 GameView.MOVES = {
-  up: [0, -1],
+  // up: [0, -1],
   left: [-5, 0], 
-  down: [0, 1],
+  // down: [0, 1],
   right: [5, 0]
 }

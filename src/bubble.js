@@ -9,8 +9,8 @@ export default class Bubble extends MovingObject {
     options.radius = Bubble.RADIUS;
     options.pos = options.pos || options.pang.randomPosition(); // Bubbles may not have random positions. Maybe render the bubble position based on the levels.
     options.vel = options.vel || Util.randomVec(Bubble.SPEED);   // Need to change Util.randomVec(Bubble.SPEED). Or not... only change if I want Bubble to spawn with set directions
-    super(options);
     options.isBounceable = true;
+    super(options);
   }
 
   collideWith(otherObject) {

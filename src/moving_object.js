@@ -30,7 +30,14 @@ export default class MovingObject {
   move() {
     this.pos[0] += this.vel[0];
     this.pos[1] += this.vel[1];
-    this.vel = this.pang.bounce(this.pos, this.vel, this.radius);
+
+    if (this.pang.isOutOfBounds(this.pos, this.radius)) {
+      if (this.isBounceable) {
+        this.vel = this.pang.bounce(this.pos, this.vel, this.radius);
+      } else {
+        this.remove();
+      }
+    }
   }
 
   movePlayer() {
@@ -38,7 +45,9 @@ export default class MovingObject {
     this.pos[1] += this.vel[1];
     this.vel[0] *= 0.9; //friction
     this.vel[1] *= 0.9; //friction
-    this.vel = this.pang.bounce(this.pos, this.vel, this.radius);
+
+    this.pos = this.pang.bounds(this.pos, this.vel, this.radius);
+    
   }
 
   remove() {
