@@ -11,6 +11,7 @@ export default class Bubble extends MovingObject {
     options.vel = options.vel || Util.randomVec(Bubble.SPEED);   // Need to change Util.randomVec(Bubble.SPEED). Or not... only change if I want Bubble to spawn with set directions
     options.isBounceable = true;
     super(options);
+    this.dir = 'down'
   }
 
   collideWith(otherObject) {
@@ -21,11 +22,11 @@ export default class Bubble extends MovingObject {
       //Split the bubble, remove the bullet
       // this.split();
       // for now, just remove the bubble. work on split later
+      // debugger
       this.remove();
       otherObject.remove();
       return true;
     }
-
     return false;
   }
 }
@@ -47,4 +48,4 @@ Bubble.COLORS = [
 Bubble.SIZE = ['big', 'medium', 'small'];
 Bubble.RADIUS = 75;
 Bubble.RADII = [75, 50, 25, 10];
-Bubble.SPEED = 5;
+Bubble.SPEED = 1;

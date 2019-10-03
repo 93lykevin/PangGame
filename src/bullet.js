@@ -1,4 +1,5 @@
 import MovingObject from "./moving_object";
+import Bubble from './bubble';
 
 export default class Bullet extends MovingObject{
   constructor(options) {
@@ -10,28 +11,52 @@ export default class Bullet extends MovingObject{
   }
 
   move(){
-    this.height -= 20;
-
-    console.log(Math.abs(this.height))
+    this.height -= 10;
     if (Math.abs(this.height) >= 800){
       this.remove()
     }
-
-    // if (this.pang.isOutOfBounds([this.height, this.height], 0)){
-    //   this.remove()
-    // }
-    
   }
 
   draw(ctx) {
     ctx.beginPath();
     ctx.rect(this.pos[0], this.pos[1], this.width, this.height)
     ctx.fill();
-    super.draw(ctx)
+  }
+
+  //if any point of the bullet is touching a bubble, pop it
+  //how to check that?
+  isCollidedWith(otherObject) {
+
+    if (otherObject instanceof Bubble) {
+      //center X and Y of the rectangle
+      let centerX = Math.abs(this.pos[0] + (this.width * 0.5));
+      let centerY = Math.abs(this.pos[1] + (this.height * 0.5));
+      
+      //distance from center of circle to center of rectangle
+      let distX = Math.abs(otherObject.pos[0] - centerX);
+      let distY = Math.abs(otherObject.pos[1] - centerY);
+
+      //No collision if either of these are true
+      if (distX > ((this.width * 0.5) + otherObject.radius)) { return false };
+      if (distY > ((Math.abs(this.height) * 0.5) + otherObject.radius)) { return false };
+
+      //collision if both these are true. The circle and rectangle must be in the overlapping
+      //NEED TO CLEAN THIS UP
+      if (distX <= (otherObject.radius * 0.5)) {
+        return true;
+      }
+
+      if (distY <= (Math.abs(this.height) * 0.5 )) {
+        return true
+      }
+
+      let dx = distX - this.pos[0] * 0.5;
+      let dy = distY - Math.abs(this.pos[1]) * 0.5;
+      return (dx*dx + dy*dy <= (otherObject.radius * otherObject.radius)) 
+    }
   }
 }
 
-Bullet.RADIUS = 8;
-Bullet.WIDTH = 8
-Bullet.HEIGHT = 5
-Bullet.SPEED = 15;
+Bullet.WIDTH = 8;
+Bullet.HEIGHT = 0;
+Bullet.SPEED = 5;

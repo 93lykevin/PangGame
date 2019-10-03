@@ -36,7 +36,7 @@ export default class Pang {
   addPlayer() {
     const player = new Player({ 
       pang: this,
-      pos: [Pang.DIM_X/2, Pang.DIM_Y - 49] 
+      pos: [Pang.DIM_X/2, Pang.DIM_Y-100] 
     })
     this.add(player);
     
@@ -44,7 +44,7 @@ export default class Pang {
   }
 
   allObjects() {
-    return [].concat(this.bubbles, this.players, this.bullets)
+    return [].concat(this.bullets, this.bubbles, this.players);
   }
 
   bounce(pos, vel, radius) {
@@ -58,16 +58,16 @@ export default class Pang {
   };
   
   bounds(pos, vel, radius) {
-    if (pos[0] + radius >= Pang.DIM_X) {
+    if (pos[0] + radius > Pang.DIM_X) {
       // vel[0] = 0;
-      pos[0] = Pang.DIM_X - radius - 1;
-    } else if (pos[0] - radius <= 0) {
+      pos[0] = Pang.DIM_X - radius;
+    } else if (pos[0] - radius < 0) {
       // vel[0] = 0;
-      pos[0] = radius + 1;
-    } else if (pos[1] + radius >= Pang.DIM_Y) {
+      pos[0] = radius;
+    } else if (pos[1] + radius > Pang.DIM_Y) {
       // vel[1] = 0;
-      pos[1] = Pang.DIM_Y - radius - 1;
-    } else if (pos[1] - radius <= 0) {
+      pos[1] = Pang.DIM_Y - radius;
+    } else if (pos[1] - radius < 0) {
       // vel[1] = 0;
       pos[1] = radius + 1
     } 
@@ -84,7 +84,8 @@ export default class Pang {
           const obj1 = allObjects[i];
           const obj2 = allObjects[j];
           if (obj1.isCollidedWith(obj2) && (obj1 !== obj2)) {
-            console.log('collided')
+            const collision = obj2.collideWith(obj1);
+            if (collision) return;
           }
         }
       }
@@ -140,4 +141,4 @@ Pang.BG_Color = '#000000'
 Pang.DIM_X = 1200;
 Pang.DIM_Y = 800;
 Pang.FPS = 60;
-Pang.NUM_BUBBLES = 3;
+Pang.NUM_BUBBLES = 1;
