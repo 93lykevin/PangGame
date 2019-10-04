@@ -41,11 +41,6 @@ export default class Bubble extends MovingObject {
   }
 
   draw(ctx){
-    // ctx.beginPath();
-    // ctx.arc( this.pos[0], this.pos[1], this.radius, 0, 2*Math.PI, true );
-    // ctx.fillStyle = this.color;
-    // ctx.fill();
-
     const img = new Image();
     img.src = '../assets/baloon1.png';
     ctx.drawImage( img, this.pos[0]-this.radius, this.pos[1]-this.radius, this.radius*2, this.radius*2)
@@ -56,15 +51,12 @@ export default class Bubble extends MovingObject {
     if (this.size === 'big') {
       this.pang.addSplitBubbles('medium', Bubble.RADII[1], this.pos);
       this.remove();
-      // this.pang.numBubbles += 1;
     } else if (this.size === 'medium') {
       this.pang.addSplitBubbles('small', Bubble.RADII[2], this.pos);
       this.remove();
-      // this.pang.numBubbles += 1;
     } else if (this.size === 'small') {
       this.pang.addSplitBubbles('tiny', Bubble.RADII[3], this.pos);
       this.remove();
-      // this.pang.numBubbles += 1;
     } else {
       this.remove();
     }

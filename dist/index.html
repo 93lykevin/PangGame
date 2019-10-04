@@ -8,12 +8,9 @@
   <script type="application/javascript" src="./main.js"></script>
   <link rel="stylesheet" href="../assets/css/sprites.css" type="text/css">
   <link rel="stylesheet" href="../assets/css/styles.css" type="text/css">
+  <link rel="stylesheet" href="../assets/css/reset.css" type="text/css">
   <title>!!!Pang Gang!!!</title>
   <style>
-    * { 
-      margin:0; 
-      padding: 0;
-    }
     canvas{
       border: 1px solid #000;
     }
@@ -25,10 +22,12 @@
     <div class="body-header">
       <h1>PANG GANG</h1>
     </div>
+    <div class="testing">
+      <div class='canvas-wrap'>
+        <canvas id="game-canvas" width="1200" height="800"></canvas>
+        <div class="background"></div>
+      </div>
 
-    <div class='canvas-wrap'>
-    <canvas id="game-canvas" width="1200" height="800"></canvas>
-    <div class="background"></div>
     </div>
   </div>
 </body>

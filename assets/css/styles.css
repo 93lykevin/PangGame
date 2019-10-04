@@ -1,5 +1,18 @@
+.body-container {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  margin: auto;
+}
+
+.testing {
+  display: flex;
+  width: 100%;
+
+}
 .canvas-wrap {
   display: flex;
+  margin: auto;
 }
 canvas{
   z-index: 100;
