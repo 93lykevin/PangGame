@@ -24,9 +24,7 @@ export default class Bullet extends MovingObject{
   }
 
   //if any point of the bullet is touching a bubble, pop it
-  //how to check that?
   isCollidedWith(otherObject) {
-
     if (otherObject instanceof Bubble) {
       //center X and Y of the rectangle
       let centerX = Math.abs(this.pos[0] + (this.width * 0.5));
@@ -41,7 +39,6 @@ export default class Bullet extends MovingObject{
       if (distY > ((Math.abs(this.height) * 0.5) + otherObject.radius)) { return false };
 
       //collision if both these are true. The circle and rectangle must be in the overlapping
-      //NEED TO CLEAN THIS UP
       if (distX <= (otherObject.radius * 0.5)) {
         return true;
       }

@@ -25,10 +25,10 @@ export default class Player extends MovingObject {
   }
 
   draw(ctx) {
-    ctx.beginPath();
-    ctx.rect(this.pos[0], this.pos[1], 70, 123);
-    ctx.closePath();
-    ctx.stroke();
+    // ctx.beginPath();
+    // ctx.rect(this.pos[0], this.pos[1], 70, 123);
+    // ctx.closePath();
+    // ctx.stroke();
     if (this.tick >= 40) {
       this.tick = 0;
     }

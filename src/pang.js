@@ -12,7 +12,8 @@ export default class Pang {
     this.players = [];
     this.bullets = [];
     this.lives = 3;
-    this.addBubbles();
+    this.addBubbles('big');
+    this.numBubbles = Pang.NUM_BUBBLES;
   }
 
   add(object) {
@@ -27,10 +28,16 @@ export default class Pang {
     }
   }
 
-  addBubbles() {
+  addBubbles(size) {
     for (let i = 0; i < Pang.NUM_BUBBLES; i++) {
-      this.add(new Bubble({ pang: this }))
+      this.add(new Bubble({ pang: this, size: size}))
     }
+  }
+
+  addSplitBubbles(size, radius, pos) {
+    // debugger;
+    this.add(new Bubble({ pang: this, size: size, radius: radius, pos: this.nearbyPos(pos) }));
+    this.add(new Bubble({ pang: this, size: size, radius: radius, pos: this.nearbyPos(pos) }));
   }
 
   addPlayer() {
@@ -106,6 +113,12 @@ export default class Pang {
     })
   }
 
+  nearbyPos(pos) {
+    const dx = pos[0] + (Math.random() * (150) - 75);
+    const dy = pos[1] + (Math.random() * (150) - 75);
+    return [dx, dy]
+  }
+
   randomPosition() {
     return[100 + (1000 * Math.random()), 125 ]
   }
@@ -124,7 +137,7 @@ export default class Pang {
     this.bubbles.forEach(bubble => {
       this.bubbles = []
     })
-    this.addBubbles();
+    this.addBubbles('big');
     this.players[0].pos = Pang.PLAYER_START_POS;
   }
 
