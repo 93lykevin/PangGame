@@ -18,9 +18,9 @@ export default class Bullet extends MovingObject{
   }
 
   draw(ctx) {
-    ctx.beginPath();
-    ctx.rect(this.pos[0], this.pos[1], this.width, this.height)
-    ctx.fill();
+    const img = new Image();
+    img.src = '../assets/pang2.png';
+    ctx.drawImage(img, 19, 1, 15, 200, this.pos[0], this.pos[1], this.width, this.height)
   }
 
   //if any point of the bullet is touching a bubble, pop it
@@ -57,6 +57,6 @@ export default class Bullet extends MovingObject{
   }
 }
 
-Bullet.WIDTH = 8;
+Bullet.WIDTH = 15;
 Bullet.HEIGHT = 0;
 Bullet.SPEED = 5;
