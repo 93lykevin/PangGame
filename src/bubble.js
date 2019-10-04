@@ -51,12 +51,6 @@ export default class Bubble extends MovingObject {
     ctx.drawImage( img, this.pos[0]-this.radius, this.pos[1]-this.radius, this.radius*2, this.radius*2)
   }
 
-  nearbyPos(pos) {
-    const dx = pos[0] + (Math.random() * (1 - -1) - 1 + this.radius);
-    const dy = pos[1] + (Math.random() * (1 - -1) - 1 + this.radius);
-
-    return [dx, dy]
-  }
 
   split() {
     if (this.size === 'big') {
