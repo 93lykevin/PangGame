@@ -21,7 +21,7 @@ export default class MovingObject {
     ctx.fillStyle = this.color;
     ctx.fill();
   }
-
+  //FIX IS COLLIDED WITH
   isCollidedWith(otherObject) {
     const centerDist = Util.dist(this.pos, otherObject.pos);
     return centerDist < (this.radius + otherObject.radius);

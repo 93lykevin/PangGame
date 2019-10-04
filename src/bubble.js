@@ -2,6 +2,7 @@ import MovingObject from './moving_object';
 import Util from './utils';
 import Player from './player';
 import Bullet from './bullet';
+import GameView from './game_view';
 
 export default class Bubble extends MovingObject {
   constructor(options = {}) {
@@ -17,24 +18,31 @@ export default class Bubble extends MovingObject {
   collideWith(otherObject) {
     if (otherObject instanceof Player) {
       // Remove 1 life, reset the level
+      this.pang.lives--;
+      if (this.pang.lives === 0 ) {
+        // this.pang.gameOver();
+      } else {
+        this.pang.resetLevel();
+      }
+
       return true;
     } else if (otherObject instanceof Bullet) {
       //Split the bubble, remove the bullet
       // this.split();
       // for now, just remove the bubble. work on split later
       // debugger
-      this.remove();
       otherObject.remove();
+      this.remove();
       return true;
     }
     return false;
   }
 
   draw(ctx){
-    ctx.beginPath();
-    ctx.arc( this.pos[0], this.pos[1], this.radius, 0, 2*Math.PI, true );
-    ctx.fillStyle = this.color;
-    ctx.fill();
+    // ctx.beginPath();
+    // ctx.arc( this.pos[0], this.pos[1], this.radius, 0, 2*Math.PI, true );
+    // ctx.fillStyle = this.color;
+    // ctx.fill();
 
     const img = new Image();
     img.src = '../assets/baloon1.png';
@@ -59,4 +67,4 @@ Bubble.COLORS = [
 Bubble.SIZE = ['big', 'medium', 'small'];
 Bubble.RADIUS = 75;
 Bubble.RADII = [75, 50, 25, 10];
-Bubble.SPEED = 1;
+Bubble.SPEED = 5;

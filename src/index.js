@@ -1,7 +1,5 @@
 import Pang from './pang';
 // import GameView from './game_view';
-import MovingObject from './moving_object';
-import Bubble from './bubble';
 import GameView from './game_view';
 
 //webpack --watch --mode=development

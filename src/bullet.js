@@ -20,7 +20,7 @@ export default class Bullet extends MovingObject{
   draw(ctx) {
     const img = new Image();
     img.src = '../assets/pang2.png';
-    ctx.drawImage(img, 19, 1, 15, 200, this.pos[0], this.pos[1], this.width, this.height)
+    ctx.drawImage(img, 19, 1, 14, 200, this.pos[0], this.pos[1]+20, this.width, this.height-20)
   }
 
   //if any point of the bullet is touching a bubble, pop it

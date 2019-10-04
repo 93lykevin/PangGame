@@ -3,6 +3,7 @@ export default class GameView{
     this.ctx = ctx;
     this.pang = pang;
     this.lastTime = 0;
+    this.gameOver = false;
     this.player = this.pang.addPlayer();
   }
 
@@ -24,11 +25,11 @@ export default class GameView{
   };
 
   animate(time) {
+    requestAnimationFrame(this.animate.bind(this));
     const timeDelta = time - this.lastTime;
     this.pang.step(timeDelta);
     this.pang.draw(this.ctx);
     this.lastTime = time;
-    requestAnimationFrame(this.animate.bind(this));
   }
 }
 

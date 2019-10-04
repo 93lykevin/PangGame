@@ -12,16 +12,29 @@ export default class Player extends MovingObject {
     this.tick = 0;
   }
 
+  bounds(pos) {
+    if (pos[0] < 0) {
+      pos[0] = 0;
+    } else if (pos[0] + Player.WIDTH > 1200) {
+      pos[0] = 1200-Player.WIDTH;
+    } else if (pos[1] > 800) {
+      pos[1] = 800-Player.HEIGHT;
+    }
+
+    return pos;
+  }
+
   draw(ctx) {
-    // ctx.beginPath();
-    // ctx.rect(this.pos[0], this.pos[1], 50, 120);
-    // ctx.closePath();
-    // ctx.stroke();
+    ctx.beginPath();
+    ctx.rect(this.pos[0], this.pos[1], 70, 123);
+    ctx.closePath();
+    ctx.stroke();
     if (this.tick >= 40) {
       this.tick = 0;
     }
     const img = new Image();
     img.src = "../assets/pang.png";
+    
     //Set the state of the player
     if (this.vel[0] < 0.3 && this.vel[0] > -0.3) {
       this.tick = 0;
@@ -34,7 +47,6 @@ export default class Player extends MovingObject {
       this.tick++;
       if (this.tick === 8) {
         this.state = 'runningRight'
-        // this.state = this.state === 'runningRight' ? 'steppingRight' : 'runningRight'
       } else if ( this.tick === 16) {
         this.state = 'steppingRight'
       } else if ( this.tick === 24) {
@@ -46,7 +58,6 @@ export default class Player extends MovingObject {
       this.tick++;
       if (this.tick === 8) {
         this.state = 'runningLeft'
-        // this.state = this.state === 'runningLeft' ? 'steppingLeft' : 'runningLeft'
       } else if ( this.tick === 16) {
         this.state = 'steppingLeft'
       } else if ( this.tick === 24) {
@@ -102,7 +113,8 @@ export default class Player extends MovingObject {
     this.pos[1] = this.pos[1] + offsetY; //regular old moving
     this.vel[0] *= 0.92; //friction
     this.vel[1] *= 0.92; //friction
-    this.pos = this.pang.bounds(this.pos, this.radius);
+    
+    this.pos = this.bounds(this.pos);
   }
 
   shift(unit) {
@@ -110,6 +122,8 @@ export default class Player extends MovingObject {
   }
 };
 
-Player.RADIUS = 25;
+Player.WIDTH = 70;
+Player.HEIGHT = 123;
+Player.RADIUS = Player.WIDTH/2;
 Player.NORMAL_FRAME_TIME_DELTA = 1000 / 60;
 Player.STATES = ['standing', 'walking', 'shooting', 'climbing']

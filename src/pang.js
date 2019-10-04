@@ -11,7 +11,7 @@ export default class Pang {
     this.bubbles = [];
     this.players = [];
     this.bullets = [];
-
+    this.lives = 3;
     this.addBubbles();
   }
 
@@ -36,7 +36,7 @@ export default class Pang {
   addPlayer() {
     const player = new Player({ 
       pang: this,
-      pos: [Pang.DIM_X/2 - 40, Pang.DIM_Y-123] 
+      pos: Pang.PLAYER_START_POS
     })
     this.add(player);
     
@@ -59,26 +59,20 @@ export default class Pang {
   
   bounds(pos, radius) {
     if (pos[0] + radius > Pang.DIM_X) {
-      // vel[0] = 0;
       pos[0] = Pang.DIM_X - radius;
     } else if (pos[0] - radius < 0) {
-      // vel[0] = 0;
       pos[0] = radius;
     } else if (pos[1] + radius > Pang.DIM_Y) {
-      // vel[1] = 0;
       pos[1] = Pang.DIM_Y - radius;
     } else if (pos[1] - radius < 0) {
-      // vel[1] = 0;
-      pos[1] = radius + 1
+      pos[1] = radius
     } 
 
     return pos;
-    // return vel, pos;
   };
 
   checkCollisions() {
     const allObjects = this.allObjects();
-    allObjects.forEach(object => {
       for ( let i = 0; i < allObjects.length; i++ ) {
         for ( let j = 0; j < allObjects.length; j++) {
           const obj1 = allObjects[i];
@@ -89,7 +83,6 @@ export default class Pang {
           }
         }
       }
-    })
   }
 
   draw(ctx) {
@@ -127,6 +120,18 @@ export default class Pang {
     } 
   }
 
+  resetLevel() {
+    this.bubbles.forEach(bubble => {
+      this.bubbles = []
+    })
+    this.addBubbles();
+    this.players[0].pos = Pang.PLAYER_START_POS;
+  }
+
+  // restartLevel() {
+  //   this.resetAll();
+  // }
+
   step(delta) {
     this.moveObjects(delta);
     this.checkCollisions();
@@ -137,4 +142,5 @@ Pang.BG_Color = '#000000'
 Pang.DIM_X = 1200;
 Pang.DIM_Y = 800;
 Pang.FPS = 60;
-Pang.NUM_BUBBLES = 1;
+Pang.NUM_BUBBLES = 2;
+Pang.PLAYER_START_POS = [Pang.DIM_X/2 - 40, Pang.DIM_Y-123];
