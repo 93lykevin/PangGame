@@ -36,7 +36,7 @@ export default class Pang {
   addPlayer() {
     const player = new Player({ 
       pang: this,
-      pos: [Pang.DIM_X/2, Pang.DIM_Y-100] 
+      pos: [Pang.DIM_X/2 - 40, Pang.DIM_Y-123] 
     })
     this.add(player);
     
@@ -57,7 +57,7 @@ export default class Pang {
     return vel;
   };
   
-  bounds(pos, vel, radius) {
+  bounds(pos, radius) {
     if (pos[0] + radius > Pang.DIM_X) {
       // vel[0] = 0;
       pos[0] = Pang.DIM_X - radius;
@@ -107,13 +107,9 @@ export default class Pang {
     return false;
   }
 
-  moveObjects() {
+  moveObjects(delta) {
     this.allObjects().forEach(object => {
-      if (object instanceof Player ){
-        object.movePlayer()
-      } else {
-        object.move()
-      }
+      object.move(delta)
     })
   }
 
@@ -131,8 +127,8 @@ export default class Pang {
     } 
   }
 
-  step() {
-    this.moveObjects();
+  step(delta) {
+    this.moveObjects(delta);
     this.checkCollisions();
   }
 }

@@ -2,6 +2,7 @@ export default class GameView{
   constructor(pang, ctx){
     this.ctx = ctx;
     this.pang = pang;
+    this.lastTime = 0;
     this.player = this.pang.addPlayer();
   }
 
@@ -18,17 +19,22 @@ export default class GameView{
 
   start() {
     this.bindKeyHandlers();
-
-    setInterval(() => {
-      this.pang.step(),
-      this.pang.draw(this.ctx)
-    }, 20)
+    this.lastTime = 0;
+    requestAnimationFrame(this.animate.bind(this));
   };
+
+  animate(time) {
+    const timeDelta = time - this.lastTime;
+    this.pang.step(timeDelta);
+    this.pang.draw(this.ctx);
+    this.lastTime = time;
+    requestAnimationFrame(this.animate.bind(this));
+  }
 }
 
 GameView.MOVES = {
   // up: [0, -1],
-  left: [-5, 0], 
+  left: [-3, 0], 
   // down: [0, 1],
-  right: [5, 0]
+  right: [3, 0]
 }

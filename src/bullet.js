@@ -10,7 +10,7 @@ export default class Bullet extends MovingObject{
     this.width = Bullet.WIDTH;
   }
 
-  move(){
+  move(delta){
     this.height -= 10;
     if (Math.abs(this.height) >= 800){
       this.remove()
