@@ -11,9 +11,11 @@ export default class Pang {
     this.bubbles = [];
     this.players = [];
     this.bullets = [];
-    this.lives = 3;
+    this.lives = 1;
     this.addBubbles('big');
     this.numBubbles = Pang.NUM_BUBBLES;
+    this.DIM_X = Pang.DIM_X;
+    this.DIM_Y = Pang.DIM_Y;
   }
 
   add(object) {

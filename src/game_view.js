@@ -25,11 +25,36 @@ export default class GameView{
   };
 
   animate(time) {
-    requestAnimationFrame(this.animate.bind(this));
+    this.frameId = requestAnimationFrame(this.animate.bind(this));
     const timeDelta = time - this.lastTime;
     this.pang.step(timeDelta);
-    this.pang.draw(this.ctx);
+    if (this.pang.lives <= 0) {
+      this.gameOverMessage();
+      cancelAnimationFrame(this.frameId);
+    } else {
+      this.pang.draw(this.ctx);
+    }
     this.lastTime = time;
+  }
+
+  gameOverMessage() {
+    const ctx = this.ctx;
+    ctx.save();
+    this.drawGameOver(ctx);
+    // this.drawRetry();
+    // this.drawRank();
+    ctx.restore();
+  }
+
+  drawGameOver(ctx) {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
+    ctx.fillRect(0, 0, this.pang.DIM_X, this.pang.DIM_Y);
+    ctx.fillStyle = 'green';
+    ctx.font = '123px VT323';
+    ctx.shadowColor = "#f90";
+    const text = 'GAME OVER';
+    const textWidth = ctx.measureText(text).width
+    ctx.fillText(text, this.pang.DIM_X/2 - textWidth/2 , this.pang.DIM_Y/2)
   }
 }
 
