@@ -1,9 +1,11 @@
+import Splash from './splash';
+
 export default class GameView{
-  constructor(pang, ctx){
+  constructor(pang, ctx, canvas){
     this.ctx = ctx;
+    this.canvas = canvas;
     this.pang = pang;
     this.lastTime = 0;
-    this.gameOver = false;
     this.player = this.pang.addPlayer();
   }
 
@@ -16,6 +18,7 @@ export default class GameView{
     });
 
     key("z", () => {player.fireBullet()})
+    key("space", () => {this.pang.gameOver = true})
   };
 
   start() {
@@ -24,14 +27,45 @@ export default class GameView{
     requestAnimationFrame(this.animate.bind(this));
   };
 
+  // start() {
+  //   this.initSplash();
+  //   this.bindStartListener()
+  // };
+
+  // startGame() {
+  //   this.bindKeyHandlers();
+  //   this.lastTime = 0;
+  //   requestAnimationFrame(this.animate.bind(this));
+  // };
+
+  // initSplash() {
+  //   this.splash = new Splash(this.ctx);
+  //   this.splash.loop();
+  // }
+
+  // bindStartListener() {
+  //   this.buttonHandler = this.handleButton.bind(this);
+  //   this.canvas.addEventListener("mousedown", this.buttonHandler);
+  // }
+
+  // handleButton(e) {
+  //   const pos = this.getEventCoordinates(e);
+  //   const x = pos[0];
+  //   const y = pos[1];
+  //   if (this.soundButtonSelected(x, y)) this.sound.on = true;
+  //   this.gameOverMessage.setSound(this.sound);
+  //   if (this.sound.on || this.soundOffSelected(x, y)) this.beginGame();
+  // }
+
   animate(time) {
     this.frameId = requestAnimationFrame(this.animate.bind(this));
-    const timeDelta = time - this.lastTime;
-    this.pang.step(timeDelta);
-    if (this.pang.lives <= 0) {
+
+    if (this.pang.gameOver === true) {
       this.gameOverMessage();
       cancelAnimationFrame(this.frameId);
     } else {
+      const timeDelta = time - this.lastTime;
+      this.pang.step(timeDelta);
       this.pang.draw(this.ctx);
     }
     this.lastTime = time;
@@ -41,21 +75,33 @@ export default class GameView{
     const ctx = this.ctx;
     ctx.save();
     this.drawGameOver(ctx);
-    // this.drawRetry();
-    // this.drawRank();
+    this.drawScore(ctx)
+    this.drawRetry(ctx);
     ctx.restore();
   }
 
   drawGameOver(ctx) {
-    ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
+    ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
     ctx.fillRect(0, 0, this.pang.DIM_X, this.pang.DIM_Y);
+    // ctx.fillStyle = "url(./assets/background2.png)"
     ctx.fillStyle = 'green';
-    ctx.font = '123px VT323';
-    ctx.shadowColor = "#f90";
+    ctx.font = '123px VT323'; 
     const text = 'GAME OVER';
     const textWidth = ctx.measureText(text).width
-    ctx.fillText(text, this.pang.DIM_X/2 - textWidth/2 , this.pang.DIM_Y/2)
+    ctx.fillText(text, this.pang.DIM_X/2 - textWidth/2 , this.pang.DIM_Y/2 - 200)
   }
+
+  drawScore(ctx) {
+
+  }
+
+  drawRetry(ctx) {
+    ctx.font = "36px VT323";
+    ctx.fillStyle = "#ff9";
+    var text = "RETRY";
+    var textWidth = ctx.measureText(text).width;
+    ctx.fillText(text, this.pang.DIM_X/2 - textWidth/2 , this.pang.DIM_Y/2 + 300)
+  };
 }
 
 GameView.MOVES = {

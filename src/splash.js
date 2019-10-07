@@ -10,22 +10,18 @@ export default class Splash {
 
   loop(ctx) {
     this.frameId = requestAnimationFrame(this.loop.bind(this))
-    // this.step();
     this.draw();
   };
-
-  // step() {
-  //   this.stepCount++ 
-  // }
 
   draw() {
     const ctx = this.ctx;
     let x = 1200;
     let y = 800;
     ctx.save();
-    ctx.fillStyle = 'black';
+    ctx.fillStyle = 'blue';
     ctx.fillRect(0, 0, x, y);
     ctx.restore();
+    ctx.drawImage(this.splashGIF, 0, 0, x, y)
   }
 
   end() {

@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   canvas.height = Pang.DIM_Y;
   
   const pang = new Pang();
-  new GameView(pang, ctx).start();
+  new GameView(pang, ctx, canvas).start();
   
   console.log("webpack is workingggg")
 })

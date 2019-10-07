@@ -21,7 +21,7 @@ export default class Bubble extends MovingObject {
       // Remove 1 life, reset the level
       this.pang.lives--;
       if (this.pang.lives === 0 ) {
-        // this.pang.gameOver();
+        this.pang.gameOver = true;
       } else {
         this.pang.resetLevel();
       }
