@@ -36,7 +36,7 @@ export default class Player extends MovingObject {
       this.tick = 0;
     }
     const img = new Image();
-    img.src = "../assets/pang.png";
+    img.src = "./assets/pang.png";
     
     //Set the state of the player
     if (this.vel[0] < 0.3 && this.vel[0] > -0.3) {
@@ -150,7 +150,16 @@ export default class Player extends MovingObject {
   }
 
   shift(unit) {
+    if (this.vel[0] > 0 && unit[0] < 0) {
+      this.vel[0] = 0;
+    } 
+
+    if (this.vel[0] < 0 && unit[0] > 0) {
+      this.vel[0] = 0;
+    }
+    
     this.vel[0] += unit[0];
+    // this.pos[0] = this.pos[0] + this.vel[0] + unit[0]
   }
 };
 

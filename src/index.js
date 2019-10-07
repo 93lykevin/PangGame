@@ -1,5 +1,4 @@
 import Pang from './pang';
-// import GameView from './game_view';
 import GameView from './game_view';
 
 //webpack --watch --mode=development
@@ -16,4 +15,3 @@ document.addEventListener("DOMContentLoaded", () => {
   
   console.log("webpack is workingggg")
 })
-

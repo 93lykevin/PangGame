@@ -30,7 +30,6 @@ export default class Bubble extends MovingObject {
       //Split the bubble, remove the bullet
       this.split();
       // for now, just remove the bubble. work on split later
-      // debugger
       otherObject.remove();
       // if (this.size === 'big') {
       //   this.pang.numBubbles += 1;
@@ -42,7 +41,7 @@ export default class Bubble extends MovingObject {
 
   draw(ctx){
     const img = new Image();
-    img.src = '../assets/baloon1.png';
+    img.src = './assets/baloon1.png';
     ctx.drawImage( img, this.pos[0]-this.radius, this.pos[1]-this.radius, this.radius*2, this.radius*2)
   }
 

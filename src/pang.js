@@ -35,7 +35,6 @@ export default class Pang {
   }
 
   addSplitBubbles(size, radius, pos) {
-    // debugger;
     this.add(new Bubble({ pang: this, size: size, radius: radius, pos: this.nearbyPos(pos) }));
     this.add(new Bubble({ pang: this, size: size, radius: radius, pos: this.nearbyPos(pos) }));
   }
