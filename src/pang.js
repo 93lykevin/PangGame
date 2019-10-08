@@ -13,7 +13,7 @@ export default class Pang {
     this.bullets = [];
     this.lives = 1;
     this.gameOver = false;
-    this.addBubbles('big');
+    // this.addBubbles('big');
     this.numBubbles = Pang.NUM_BUBBLES;
     this.DIM_X = Pang.DIM_X;
     this.DIM_Y = Pang.DIM_Y;

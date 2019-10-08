@@ -34,3 +34,7 @@ canvas{
   overflow: hidden;
   background-size: 207% 2605%;
 }
+
+#splash-gif {
+  display: none;
+}

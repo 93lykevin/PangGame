@@ -21,32 +21,41 @@ export default class GameView{
     key("space", () => {this.pang.gameOver = true})
   };
 
-  start() {
-    this.bindKeyHandlers();
-    this.lastTime = 0;
-    requestAnimationFrame(this.animate.bind(this));
-  };
-
   // start() {
-  //   this.initSplash();
-  //   this.bindStartListener()
-  // };
-
-  // startGame() {
   //   this.bindKeyHandlers();
   //   this.lastTime = 0;
   //   requestAnimationFrame(this.animate.bind(this));
   // };
 
-  // initSplash() {
-  //   this.splash = new Splash(this.ctx);
-  //   this.splash.loop();
-  // }
+  start() {
+    this.initSplash();
+    this.bindStartListener()
+  };
 
-  // bindStartListener() {
-  //   this.buttonHandler = this.handleButton.bind(this);
-  //   this.canvas.addEventListener("mousedown", this.buttonHandler);
-  // }
+  startGame() {
+    this.canvas.removeEventListener("mousedown", this.buttonHandler);
+    this.splash.end();
+    delete this.splash;
+
+    this.pang.addBubbles('big');
+    this.bindKeyHandlers();
+    this.lastTime = 0;
+    requestAnimationFrame(this.animate.bind(this));
+  };
+
+  initSplash() {
+    this.splash = new Splash(this.ctx);
+    this.splash.loop();
+  }
+
+  bindStartListener() {
+    this.buttonHandler = this.handleButton.bind(this);
+    this.canvas.addEventListener("mousedown", this.buttonHandler);
+  }
+
+  handleButton(e) {
+    this.startGame();
+  }
 
   // handleButton(e) {
   //   const pos = this.getEventCoordinates(e);
@@ -54,7 +63,7 @@ export default class GameView{
   //   const y = pos[1];
   //   if (this.soundButtonSelected(x, y)) this.sound.on = true;
   //   this.gameOverMessage.setSound(this.sound);
-  //   if (this.sound.on || this.soundOffSelected(x, y)) this.beginGame();
+  //   if (this.sound.on || this.soundOffSelected(x, y)) this.startGame();
   // }
 
   animate(time) {
