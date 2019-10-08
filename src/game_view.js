@@ -27,6 +27,7 @@ export default class GameView{
     requestAnimationFrame(this.animate.bind(this));
   };
 
+  //switch this for when splash works
   // start() {
   //   this.initSplash();
   //   this.bindStartListener()
