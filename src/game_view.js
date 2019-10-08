@@ -21,16 +21,16 @@ export default class GameView{
     key("space", () => {this.pang.gameOver = true})
   };
 
-  // start() {
-  //   this.bindKeyHandlers();
-  //   this.lastTime = 0;
-  //   requestAnimationFrame(this.animate.bind(this));
-  // };
-
   start() {
-    this.initSplash();
-    this.bindStartListener()
+    this.bindKeyHandlers();
+    this.lastTime = 0;
+    requestAnimationFrame(this.animate.bind(this));
   };
+
+  // start() {
+  //   this.initSplash();
+  //   this.bindStartListener()
+  // };
 
   startGame() {
     this.canvas.removeEventListener("mousedown", this.buttonHandler);
