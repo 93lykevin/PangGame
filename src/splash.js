@@ -5,6 +5,7 @@ export default class Splash {
     this.ctx = ctx;
     // this.splashGIF = document.getElementById('splash-gif');
     this.splashGIF = new Image();
+    // this.splashGIF.src = "./assets/intro2.gif";
     this.splashGIF.src = "./assets/splash.png";
     this.stepCount = 0;
   }

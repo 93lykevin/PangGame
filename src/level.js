@@ -1,3 +1,4 @@
+//ADD LEVELS IN FUTURE
 export default class Level {
   constructor(dimensions) {
     this.dimensions = dimensions;

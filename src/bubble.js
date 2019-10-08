@@ -2,7 +2,6 @@ import MovingObject from './moving_object';
 import Util from './utils';
 import Player from './player';
 import Bullet from './bullet';
-import GameView from './game_view';
 
 export default class Bubble extends MovingObject {
   constructor(options = {}) {
@@ -18,8 +17,7 @@ export default class Bubble extends MovingObject {
 
   collideWith(otherObject) {
     if (otherObject instanceof Player) {
-      // Remove 1 life, reset the level
-      this.pang.lives--;
+      this.pang.lives--;  // Remove 1 life, check if game is over --> end game, if not --> reset the level
       if (this.pang.lives === 0 ) {
         this.pang.gameOver = true;
       } else {
@@ -27,13 +25,8 @@ export default class Bubble extends MovingObject {
       }
       return true;
     } else if (otherObject instanceof Bullet) {
-      //Split the bubble, remove the bullet
-      this.split();
-      // for now, just remove the bubble. work on split later
-      otherObject.remove();
-      // if (this.size === 'big') {
-      //   this.pang.numBubbles += 1;
-      // }
+      this.split();   //Split the bubble
+      otherObject.remove(); // remove the bullet
       return true;
     }
     return false;
@@ -62,20 +55,12 @@ export default class Bubble extends MovingObject {
   }
 }
 
-
-// const blk = rgb(42, 45, 55);
-// const lb = rgb(127, 179, 225);
-// const lp = rgb(221, 162, 246);
-// const lg = rgb(138, 241, 234);
-
 Bubble.COLORS = [
   "rgb(42, 45, 55)",
   "rgb(127, 179, 225)",
   "rgb(221, 162, 246)",
   "rgb(138, 241, 234)",
-  // "red"
 ];
-// Bubble.COLORS = ['black', 'blue', 'green', 'purple', 'red'];
 Bubble.SIZE = ['big', 'medium', 'small', 'tiny'];
 Bubble.RADII = [75, 50, 25, 10];
 Bubble.SPEED = 3;

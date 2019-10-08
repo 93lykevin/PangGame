@@ -70,7 +70,7 @@ export default class GameView{
     this.frameId = requestAnimationFrame(this.animate.bind(this));
 
     if (this.pang.gameOver === true) {
-      this.gameOverMessage();
+      this.gameOverMessage();   //check game over on every before any animation
       cancelAnimationFrame(this.frameId);
     } else {
       const timeDelta = time - this.lastTime;

@@ -47,16 +47,7 @@ export default class MovingObject {
       }
     }
   }
-
-  // movePlayer() {
-  //   this.pos[0] += this.vel[0];
-  //   this.pos[1] += this.vel[1];
-  //   this.vel[0] *= 0.9; //friction
-  //   this.vel[1] *= 0.9; //friction
-
-  //   this.pos = this.pang.bounds(this.pos, this.vel, this.radius);
-  // }
-
+  
   remove() {
     this.pang.remove(this);
   }

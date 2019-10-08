@@ -11,9 +11,8 @@ export default class Pang {
     this.bubbles = [];
     this.players = [];
     this.bullets = [];
-    this.lives = 1;
+    this.lives = 5;
     this.gameOver = false;
-    // this.addBubbles('big');
     this.numBubbles = Pang.NUM_BUBBLES;
     this.DIM_X = Pang.DIM_X;
     this.DIM_Y = Pang.DIM_Y;
