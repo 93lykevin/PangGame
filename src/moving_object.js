@@ -39,6 +39,7 @@ export default class MovingObject {
     this.pos[0] = this.pos[0] + offsetX;
     this.pos[1] = this.pos[1] + offsetY;
 
+
     if (this.pang.isOutOfBounds(this.pos, this.radius)) {
       if (this.isBounceable) {
         this.vel = this.pang.bounce(this.pos, this.vel, this.radius);

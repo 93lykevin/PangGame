@@ -10,6 +10,8 @@ export default class Player extends MovingObject {
     super(options)
     this.state = options.state || 'standingRight'
     this.isBounceable = false;
+    this.moveRight = false;
+    this.moveLeft = false;
     this.tick = 0;
     this.width = Player.WIDTH;
     this.height = Player.HEIGHT;
@@ -149,22 +151,43 @@ export default class Player extends MovingObject {
     this.pos = this.bounds(this.pos);
   }
 
-  shift(unit) {
-    if (this.vel[0] > 0 && unit[0] < 0) {
-      this.vel[0] = 0;
-    } 
-
-    if (this.vel[0] < 0 && unit[0] > 0) {
-      this.vel[0] = 0;
+  shift(dir) {
+    if (dir === 'left') {
+      this.moveLeft = true;
     }
-    
-    this.vel[0] += unit[0];
-    // this.pos[0] = this.pos[0] + this.vel[0] + unit[0]
+
+    if (dir === 'right') {
+      this.moveRight = true;
+    }
+
+    if (this.moveRight) {
+      this.vel[0] +=  Player.SPEED;
+    }
+
+    if (this.moveLeft) {
+      this.vel[0] -= Player.SPEED;
+    }
   }
+
+
+  // shift(unit) {
+    //these two if statements are for when player changes direction. 
+    //instantly reset velocity to 0
+  //   if (this.vel[0] > 0 && unit[0] < 0) {
+  //     this.vel[0] = 0;
+  //   } 
+  //   if (this.vel[0] < 0 && unit[0] > 0) {
+  //     this.vel[0] = 0;
+  //   }
+    
+  //   this.vel[0] += unit[0];
+  //   // this.pos[0] = this.pos[0] + this.vel[0] + unit[0]
+  // }
 };
 
 Player.WIDTH = 110;
 Player.HEIGHT = 125;
 Player.RADIUS = 0;
+Player.SPEED = 3;
 Player.NORMAL_FRAME_TIME_DELTA = 1000 / 60;
 Player.STATES = ['standing', 'walking', 'shooting', 'climbing']

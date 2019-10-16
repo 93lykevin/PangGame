@@ -10,6 +10,7 @@ export default class Bubble extends MovingObject {
     options.pos = options.pos || options.pang.randomPosition(); // Bubbles may not have random positions. Maybe render the bubble position based on the levels.
     options.isBounceable = true;
     options.vel = options.vel || Util.randomVec(Bubble.SPEED);   // Need to change Util.randomVec(Bubble.SPEED). Or not... only change if I want Bubble to spawn with set directions
+    options.acc = 5;
     super(options);
     this.dir = 'down'
     this.size = options.size || 'big'

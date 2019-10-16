@@ -15,6 +15,7 @@ export default class GameView{
     Object.keys(GameView.MOVES).forEach((k) => {
       const dir = GameView.MOVES[k];
       key(k, () => { player.shift(dir); });
+      // key(k.onkeyup, () => {player.shift('false')} )
     });
 
     key("z", () => {player.fireBullet()})
@@ -114,9 +115,14 @@ export default class GameView{
   };
 }
 
+// GameView.MOVES = {
+//   // up: [0, -1],
+//   left: [-3, 0], 
+//   // down: [0, 1],
+//   right: [3, 0]
+// }
+
 GameView.MOVES = {
-  // up: [0, -1],
-  left: [-3, 0], 
-  // down: [0, 1],
-  right: [3, 0]
+  left: 'left',
+  right: 'right'
 }
