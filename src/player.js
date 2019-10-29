@@ -31,7 +31,7 @@ export default class Player extends MovingObject {
 
   draw(ctx) {
     // ctx.beginPath();
-    // ctx.rect(this.pos[0], this.pos[1], 70, 123);
+    // ctx.rect(this.pos[0], this.pos[1], Player.WIDTH, Player.HEIGHT);
     // ctx.closePath();
     // ctx.stroke();
     if (this.tick >= 40) {
@@ -140,54 +140,30 @@ export default class Player extends MovingObject {
 
   move(delta) {
     const velocityScale = delta / Player.NORMAL_FRAME_TIME_DELTA;
-    const offsetX = this.vel[0] * velocityScale;
-    const offsetY = this.vel[1] * velocityScale;
+    // const offsetX = this.vel[0] * velocityScale;
+    // const offsetY = this.vel[1] * velocityScale;
 
-    this.pos[0] = this.pos[0] + offsetX; //regular old moving
-    this.pos[1] = this.pos[1] + offsetY; //regular old moving
-    this.vel[0] *= 0.92; //friction
-    this.vel[1] *= 0.92; //friction
-    
-    this.pos = this.bounds(this.pos);
-  }
-
-  shift(dir) {
-    if (dir === 'left') {
-      this.moveLeft = true;
-    }
-
-    if (dir === 'right') {
-      this.moveRight = true;
-    }
-
-    if (this.moveRight) {
+    if (this.moveRight === true) {
       this.vel[0] +=  Player.SPEED;
-    }
+    } 
 
-    if (this.moveLeft) {
+    if (this.moveLeft === true) {
       this.vel[0] -= Player.SPEED;
     }
-  }
 
+    this.pos[0] += this.vel[0]
 
-  // shift(unit) {
-    //these two if statements are for when player changes direction. 
-    //instantly reset velocity to 0
-  //   if (this.vel[0] > 0 && unit[0] < 0) {
-  //     this.vel[0] = 0;
-  //   } 
-  //   if (this.vel[0] < 0 && unit[0] > 0) {
-  //     this.vel[0] = 0;
-  //   }
+    //friction
+    this.vel[0] *= 0.92; 
+    this.vel[1] *= 0.92; 
     
-  //   this.vel[0] += unit[0];
-  //   // this.pos[0] = this.pos[0] + this.vel[0] + unit[0]
-  // }
+    this.pos = this.bounds(this.pos)
+  }
 };
 
-Player.WIDTH = 110;
+Player.WIDTH = 70;
 Player.HEIGHT = 125;
 Player.RADIUS = 0;
-Player.SPEED = 3;
+Player.SPEED = 0.45;
 Player.NORMAL_FRAME_TIME_DELTA = 1000 / 60;
 Player.STATES = ['standing', 'walking', 'shooting', 'climbing']

@@ -1,4 +1,5 @@
 import Splash from './splash';
+import Player from './player';
 
 export default class GameView{
   constructor(pang, ctx, canvas){
@@ -12,14 +13,26 @@ export default class GameView{
   bindKeyHandlers() {
     const player = this.player;
 
-    Object.keys(GameView.MOVES).forEach((k) => {
-      const dir = GameView.MOVES[k];
-      key(k, () => { player.shift(dir); });
-      // key(k.onkeyup, () => {player.shift('false')} )
-    });
+    document.addEventListener("keydown", (e) => {
+      // console.log(e.key)
+      if (e.key === 'ArrowRight') {
+        player.moveRight = true;
+      } else if (e.key === 'ArrowLeft') {
+        player.moveLeft = true;
+      }
+    })
 
-    key("z", () => {player.fireBullet()})
-    key("space", () => {this.pang.gameOver = true})
+    document.addEventListener("keyup", (e) => {
+      // console.log("up", e.key)
+      if (e.key === 'ArrowRight') {
+        player.moveRight = false;
+      } else if (e.key === 'ArrowLeft') {
+        player.moveLeft = false;
+      }
+    })
+
+    key("space", () => {player.fireBullet()})
+    // key("z", () => {this.pang.gameOver = true})
   };
 
   start() {

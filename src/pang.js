@@ -60,7 +60,7 @@ export default class Pang {
     if ((pos[0]+radius) >= Pang.DIM_X || (pos[0]-radius) <= 0) {
       vel[0] *= -1
     } 
-    else if ((pos[1]+radius) >= Pang.DIM_Y || (pos[1]-radius) <= 0){
+    else if ((pos[1]+radius) >= Pang.DIM_Y || (pos[1]-radius) <= 0) {
       vel[1] *=-1
     }
     return vel;
