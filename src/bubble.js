@@ -40,7 +40,6 @@ export default class Bubble extends MovingObject {
     ctx.drawImage( img, this.pos[0]-this.radius, this.pos[1]-this.radius, this.radius*2, this.radius*2)
   }
 
-  //ADD ACCELERATION TO BUBBLE TO MAKE PARABOLIC MOVEMENT
   move(timeDelta) {
     //timeDelta = number of ms since last call of move(
     //if computer is busy --> timeDelta will be larger
@@ -50,13 +49,42 @@ export default class Bubble extends MovingObject {
     const offsetX = this.vel[0] * velocityScale;
     const offsetY = this.vel[1] * velocityScale;
 
-    this.pos[0] += offsetX;
-    this.pos[1] += offsetY;
+    if (this.size === 'big' && this.pos[1] <= 200 && this.dir === 'up') {
+      this.vel[1] += Bubble.ACCEL;
+      // console.log(this.pos[1])
+    } 
+    if (this.size === 'medium' && this.pos[1] <= 250 && this.dir === 'up') {
+      this.vel[1] += Bubble.ACCEL;
+    } 
+    if (this.size === 'small' && this.pos[1] <= 400 && this.dir === 'up') {
+      this.vel[1] += Bubble.ACCEL;
+    } 
+    if (this.size === 'tiny' && this.pos[1] <= 500 && this.dir === 'up') {
+      this.vel[1] += Bubble.ACCEL;
+    } 
+
+    if (this.pos[1] >= Bubble.MIN_HEIGHT_MEDIUM && this.size === 'medium') {
+      this.vel[1] -= Bubble.ACCEL*2
+    }
+
+    if (this.pos[1] >= Bubble.MIN_HEIGHT_SMALL && this.size === 'small') {
+      this.vel[1] -= Bubble.ACCEL*2
+    }
+
+    if (this.pos[1] >= Bubble.MIN_HEIGHT_TINY && this.size === 'tiny') {
+      this.vel[1] -= Bubble.ACCEL*2
+    }
+
+    this.vel[1] += Bubble.ACCEL;
+  
+    this.pos[0] += this.vel[0];
+    this.pos[1] += this.vel[1];
 
 
     if (this.pang.isOutOfBounds(this.pos, this.radius)) {
       if (this.isBounceable) {
         this.vel = this.pang.bounce(this.pos, this.vel, this.radius);
+        this.dir = this.dir === 'down' ? 'up' : 'down'
       } else {
         this.remove();
       }
@@ -86,7 +114,12 @@ Bubble.COLORS = [
   "rgb(138, 241, 234)",
 ];
 Bubble.SIZE = ['big', 'medium', 'small', 'tiny'];
-Bubble.MAX_HEIGHTS = [100, 200, 275, 300]
+Bubble.DIRS = ['down', 'up']
+Bubble.MIN_HEIGHT_MEDIUM = 750;
+Bubble.MIN_HEIGHT_SMALL = 775;
+Bubble.MIN_HEIGHT_TINY = 790;
+Bubble.MAX_HEIGHT = 200
 Bubble.RADII = [75, 50, 25, 10];
-Bubble.SPEED = 1;
+Bubble.SPEED = 3;
+Bubble.ACCEL = 0.15;
 Bubble.INIT_POS = [600, 600]

@@ -23,7 +23,6 @@ export default class GameView{
     })
 
     document.addEventListener("keyup", (e) => {
-      // console.log("up", e.key)
       if (e.key === 'ArrowRight') {
         player.moveRight = false;
       } else if (e.key === 'ArrowLeft') {

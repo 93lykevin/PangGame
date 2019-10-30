@@ -116,8 +116,8 @@ export default class Pang {
   }
 
   nearbyPos(pos) {
-    const dx = pos[0] + (Math.random() * (150) - 75);
-    const dy = pos[1] + (Math.random() * (150) - 75);
+    const dx = pos[0] + (Math.random() * (50) - 25);
+    const dy = pos[1] + (Math.random() * (50) - 25);
     return [dx, dy]
   }
 
@@ -157,5 +157,5 @@ Pang.BG_Color = '#000000'
 Pang.DIM_X = 1200;
 Pang.DIM_Y = 800;
 Pang.FPS = 60;
-Pang.NUM_BUBBLES = 2;
+Pang.NUM_BUBBLES = 1;
 Pang.PLAYER_START_POS = [Pang.DIM_X/2 - 40, Pang.DIM_Y-123];
