@@ -11,6 +11,7 @@ export default class Pang {
     this.bubbles = [];
     this.players = [];
     this.bullets = [];
+    this.level = 1;
     this.lives = 5;
     this.addBubbles(); //remove this for splash page
     this.gameOver = false;
@@ -94,6 +95,14 @@ export default class Pang {
       }
   }
 
+  checkLevelOver() {
+    if (!this.bubbles.length) {
+      this.level += 1;
+      this.addBubbles();
+      this.addBubbles();
+    }
+  }
+
   draw(ctx) {
     ctx.clearRect(0, 0, Pang.DIM_X, Pang.DIM_Y);
     ctx.fillStyle = Pang.BG_Color;
@@ -148,6 +157,7 @@ export default class Pang {
   // }
 
   step(delta) {
+    this.checkLevelOver();
     this.moveObjects(delta);
     this.checkCollisions();
   }
@@ -157,5 +167,5 @@ Pang.BG_Color = '#000000'
 Pang.DIM_X = 1200;
 Pang.DIM_Y = 800;
 Pang.FPS = 60;
-Pang.NUM_BUBBLES = 1;
+Pang.NUM_BUBBLES = 2;
 Pang.PLAYER_START_POS = [Pang.DIM_X/2 - 40, Pang.DIM_Y-123];
