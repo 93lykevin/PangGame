@@ -32,6 +32,21 @@ export default class GameView{
 
     key("space", () => {player.fireBullet()})
     // key("z", () => {this.pang.gameOver = true})
+
+    document.addEventListener("click", () => {
+      document.getElementById("instructions").style.display = "none";
+      document.getElementById("canvas-w").style.visibility = "visible";
+    })
+
+    // document.getElementById("instructions").addEventListener("click", function() {
+    //   console.log("hello")
+    //   document.getElementsByClassName("instructions-container").style.display = "none";
+    // })
+
+    // document.addEventListener("click", () => {
+      // document.getElementsByClassName("instructions-container").color = "red";
+      // document.getElementsByClassName("instructions-container").display = "none";
+    // })
   };
 
   start() {

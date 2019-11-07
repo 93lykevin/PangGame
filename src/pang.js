@@ -95,6 +95,8 @@ export default class Pang {
       }
   }
 
+  // Make bubbles a function based on the current level. 
+  // Spawn different amount of bubbles based on what level it is
   checkLevelOver() {
     if (!this.bubbles.length) {
       this.level += 1;

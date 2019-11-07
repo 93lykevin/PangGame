@@ -49,6 +49,7 @@
   background-color: #000;
 }
 .canvas-wrap {
+  /* display: none; */
   display: flex;
   margin: auto;
 }
@@ -71,7 +72,6 @@ canvas{
   /* background-position: -28px -3632px; */
   /* background-position: -28px -4532px; */
   /* background-position: -1310px -32px;  */
-
   background-repeat: no-repeat;
   vertical-align: bottom;
   overflow: hidden;
@@ -80,4 +80,49 @@ canvas{
 
 #splash-gif {
   display: none;
+}
+
+.instructions-container {
+  height: 100%;
+  width: 100%;
+  background-color: rgb(16, 16, 16);
+  /* background-color: rgba(129, 150, 158, 0.9); */
+  color: rgb(255, 253, 58);
+  position: absolute;
+  z-index: 1000;
+  /* top: 196px;
+  left: 350px; */
+  visibility: visible;
+  display: flex;
+  justify-content: center;
+
+}
+
+.instructions-box {
+  font-family: VT323;
+}
+
+.instructions-box h1 {
+  font-size: 250px;
+}
+
+.instructions-box h2 {
+  font-size: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.how-to-play p {
+  font-size: 50px;
+}
+
+.pang-keys {
+  height: 200px;
+  width: 300px;
+}
+
+.pang-splash {
+  height: 500px;
+  width: 800px;
+  z-index: 1001;
 }
