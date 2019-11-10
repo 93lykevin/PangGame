@@ -52,6 +52,7 @@
   /* display: none; */
   display: flex;
   margin: auto;
+  visibility: hidden;
 }
 canvas{
   z-index: 100;

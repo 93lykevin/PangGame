@@ -33,9 +33,10 @@ export default class GameView{
     key("space", () => {player.fireBullet()})
     // key("z", () => {this.pang.gameOver = true})
 
-    document.addEventListener("click", () => {
+    document.addEventListener("click", function playGame() {
       document.getElementById("instructions").style.display = "none";
       document.getElementById("canvas-w").style.visibility = "visible";
+      document.removeEventListener('click', playGame, false)
     })
 
     // document.getElementById("instructions").addEventListener("click", function() {
