@@ -19,14 +19,13 @@
     }
   </style>
 </head>
-
 <body>
-  <img src="./assets//intro2.gif" id="splash-gif">
   <div class="body-container">
     <div class="body-header">
-      <h1 style="font-family: VT323">PANG!</h1>
+      <h1 style="font-family: VT323"></h1>
     </div>
     <div class="game">
+      <div class="game-and-score">
       <div class='canvas-wrap' id="canvas-w">
           
         <canvas id="game-canvas" width="1200" height="800"></canvas>
@@ -37,6 +36,12 @@
               <div class="how-to-play">
                 <div class="pang-keys">
                   <img src="./assets/Pang Keys.png" alt="pang-keys" class="keys-img">
+                  <div class="pang-instructions">
+                    <ul class="pang-instructions-list">
+                      <li>*Pop all bubbles to win!</li>
+                      <li>*Don't get hit by a bubble!</li>
+                    </ul>
+                  </div>
                 </div>
                 <h2>Click Anywhere to Start</h2>
               </div>
@@ -44,6 +49,11 @@
           </div>
         </div>
       </div>
+      <div class="score">
+        <div>Score: </div><div class="">0</div>
+      </div>
+    </div>
+
       <footer class="footer-container">
         <ul class="footer-icon-list">
           <li class="footer-icon">

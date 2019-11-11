@@ -8,13 +8,14 @@ export default class GameView{
     this.pang = pang;
     this.lastTime = 0;
     this.player = this.pang.addPlayer();
+
+    this.playGame = this.playGame.bind(this);
   }
 
   bindKeyHandlers() {
     const player = this.player;
 
     document.addEventListener("keydown", (e) => {
-      // console.log(e.key)
       if (e.key === 'ArrowRight') {
         player.moveRight = true;
       } else if (e.key === 'ArrowLeft') {
@@ -31,70 +32,18 @@ export default class GameView{
     })
 
     key("space", () => {player.fireBullet()})
-    // key("z", () => {this.pang.gameOver = true})
 
-    document.addEventListener("click", function playGame() {
-      document.getElementById("instructions").style.display = "none";
-      document.getElementById("canvas-w").style.visibility = "visible";
-      document.removeEventListener('click', playGame, false)
-    })
 
-    // document.getElementById("instructions").addEventListener("click", function() {
-    //   console.log("hello")
-    //   document.getElementsByClassName("instructions-container").style.display = "none";
-    // })
-
-    // document.addEventListener("click", () => {
-      // document.getElementsByClassName("instructions-container").color = "red";
-      // document.getElementsByClassName("instructions-container").display = "none";
-    // })
+    document.addEventListener("click", this.playGame)
   };
 
-  start() {
-    this.bindKeyHandlers();
-    this.lastTime = 0;
-    requestAnimationFrame(this.animate.bind(this));
-  };
-
-  //switch this for when splash works
-  // start() {
-  //   this.initSplash();
-  //   this.bindStartListener()
-  // };
-
-  startGame() {
-    this.canvas.removeEventListener("mousedown", this.buttonHandler);
-    this.splash.end();
-    delete this.splash;
-
+  playGame() {
     this.pang.addBubbles('big');
-    this.bindKeyHandlers();
-    this.lastTime = 0;
     requestAnimationFrame(this.animate.bind(this));
-  };
-
-  initSplash() {
-    this.splash = new Splash(this.ctx);
-    this.splash.loop();
+    document.getElementById("instructions").style.display = "none";
+    document.getElementById("canvas-w").style.visibility = "visible";
+    document.removeEventListener('click', this.playGame, false)
   }
-
-  bindStartListener() {
-    this.buttonHandler = this.handleButton.bind(this);
-    this.canvas.addEventListener("mousedown", this.buttonHandler);
-  }
-
-  handleButton(e) {
-    this.startGame();
-  }
-
-  // handleButton(e) {
-  //   const pos = this.getEventCoordinates(e);
-  //   const x = pos[0];
-  //   const y = pos[1];
-  //   if (this.soundButtonSelected(x, y)) this.sound.on = true;
-  //   this.gameOverMessage.setSound(this.sound);
-  //   if (this.sound.on || this.soundOffSelected(x, y)) this.startGame();
-  // }
 
   animate(time) {
     this.frameId = requestAnimationFrame(this.animate.bind(this));
@@ -141,14 +90,14 @@ export default class GameView{
     var textWidth = ctx.measureText(text).width;
     ctx.fillText(text, this.pang.DIM_X/2 - textWidth/2 , this.pang.DIM_Y/2 + 300)
   };
-}
 
-// GameView.MOVES = {
-//   // up: [0, -1],
-//   left: [-3, 0], 
-//   // down: [0, 1],
-//   right: [3, 0]
-// }
+  start() {
+    this.bindKeyHandlers();
+    this.lastTime = 0;
+    // this.pang.addBubbles('big');
+    // requestAnimationFrame(this.animate.bind(this));
+  };
+}
 
 GameView.MOVES = {
   left: 'left',

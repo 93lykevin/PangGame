@@ -13,7 +13,7 @@ export default class Pang {
     this.bullets = [];
     this.level = 1;
     this.lives = 5;
-    this.addBubbles(); //remove this for splash page
+    // this.addBubbles(); //remove this for splash page
     this.gameOver = false;
     this.numBubbles = Pang.NUM_BUBBLES;
     this.DIM_X = Pang.DIM_X;
@@ -101,7 +101,7 @@ export default class Pang {
     if (!this.bubbles.length) {
       this.level += 1;
       this.addBubbles();
-      this.addBubbles();
+      // this.addBubbles();
     }
   }
 

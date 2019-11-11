@@ -19,11 +19,11 @@ export default class Bubble extends MovingObject {
 
   collideWith(otherObject) {
     if (otherObject instanceof Player) {
-      this.pang.lives--;  // Remove 1 life, check if game is over --> end game, if not --> reset the level
+      // this.pang.lives--;  // Remove 1 life, check if game is over --> end game, if not --> reset the level
       if (this.pang.lives === 0 ) {
         this.pang.gameOver = true;
       } else {
-        this.pang.resetLevel();
+        // this.pang.resetLevel();
       }
       return true;
     } else if (otherObject instanceof Bullet) {
@@ -51,7 +51,6 @@ export default class Bubble extends MovingObject {
 
     if (this.size === 'big' && this.pos[1] <= 200 && this.dir === 'up') {
       this.vel[1] += Bubble.ACCEL;
-      // console.log(this.pos[1])
     } 
     if (this.size === 'medium' && this.pos[1] <= 250 && this.dir === 'up') {
       this.vel[1] += Bubble.ACCEL;
@@ -63,15 +62,28 @@ export default class Bubble extends MovingObject {
       this.vel[1] += Bubble.ACCEL;
     } 
 
+    if (this.pos[1] >= Bubble.MIN_HEIGHT_BIG && (this.size === 'big') && (Math.abs(this.vel[1]) < 3)) {
+      this.vel[1] -= Bubble.ACCEL*2
+    }  
+
     if (this.pos[1] >= Bubble.MIN_HEIGHT_MEDIUM && this.size === 'medium') {
+      if (Math.abs(this.vel[1]) < 8) {
+        this.vel[1] -= Bubble.ACCEL*3
+      }
       this.vel[1] -= Bubble.ACCEL*2
     }
 
     if (this.pos[1] >= Bubble.MIN_HEIGHT_SMALL && this.size === 'small') {
+      if (Math.abs(this.vel[1]) < 8) {
+        this.vel[1] -= Bubble.ACCEL*3
+      }
       this.vel[1] -= Bubble.ACCEL*2
     }
 
     if (this.pos[1] >= Bubble.MIN_HEIGHT_TINY && this.size === 'tiny') {
+      if (Math.abs(this.vel[1]) < 8) {
+        this.vel[1] -= Bubble.ACCEL*3
+      }
       this.vel[1] -= Bubble.ACCEL*2
     }
 
@@ -79,7 +91,6 @@ export default class Bubble extends MovingObject {
   
     this.pos[0] += this.vel[0];
     this.pos[1] += this.vel[1];
-
 
     if (this.pang.isOutOfBounds(this.pos, this.radius)) {
       if (this.isBounceable) {
@@ -115,8 +126,9 @@ Bubble.COLORS = [
 ];
 Bubble.SIZE = ['big', 'medium', 'small', 'tiny'];
 Bubble.DIRS = ['down', 'up']
+Bubble.MIN_HEIGHT_BIG = 700;
 Bubble.MIN_HEIGHT_MEDIUM = 750;
-Bubble.MIN_HEIGHT_SMALL = 775;
+Bubble.MIN_HEIGHT_SMALL = 770;
 Bubble.MIN_HEIGHT_TINY = 790;
 Bubble.MAX_HEIGHT = 200
 Bubble.RADII = [75, 50, 25, 10];
