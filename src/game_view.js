@@ -1,5 +1,6 @@
 import Splash from './splash';
 import Player from './player';
+import Pang from './pang';
 
 export default class GameView{
   constructor(pang, ctx, canvas){
@@ -68,13 +69,29 @@ export default class GameView{
     this.drawScore(ctx)
     this.drawRetry(ctx);
     ctx.restore();
+
+    document.addEventListener('keypress', this.resetGame)
+  }
+
+  resetGame() {
+    console.log('reset game')
+    const pang = new Pang();
+    const canvas = document.getElementById('game-canvas');
+    const ctx = canvas.getContext("2d");
+    document.getElementById("score").innerHTML = '0';
+    document.getElementById("lives").innerHTML = '5';
+    ctx.clearRect(0, 0, 1200, 800);
+    new GameView(pang, ctx, canvas).start();
+    document.removeEventListener("keypress", this.resetGame, false)
+    // document.getElementById("instructions").style.display = "flex";
+    // document.getElementById("canvas-w").style.visibility = "visible";
   }
 
   drawGameOver(ctx) {
     ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
     ctx.fillRect(0, 0, this.pang.DIM_X, this.pang.DIM_Y);
     // ctx.fillStyle = "url(./assets/background2.png)"
-    ctx.fillStyle = 'green';
+    ctx.fillStyle = 'rgb(255, 253, 58)';
     ctx.font = '123px VT323'; 
     const text = 'GAME OVER';
     const textWidth = ctx.measureText(text).width
@@ -82,24 +99,25 @@ export default class GameView{
   }
 
   drawScore(ctx) {
-
+    ctx.font = "36px VT323";
+    ctx.fillStyle = "#ff9";
+    const score = document.getElementById("score").innerHTML
+    const text = 'Your Score: ' + score;
+    const textWidth = ctx.measureText(text).width;
+    ctx.fillText(text, this.pang.DIM_X/2 - textWidth/2 , this.pang.DIM_Y/2 - 100)
   }
 
   drawRetry(ctx) {
     ctx.font = "36px VT323";
     ctx.fillStyle = "#ff9";
-    var text = "RETRY";
-    var textWidth = ctx.measureText(text).width;
-    ctx.fillText(text, this.pang.DIM_X/2 - textWidth/2 , this.pang.DIM_Y/2 + 300)
-    document.addEventListener('click', () => {
-      console.log("hi")
-      this.start()
-    })
+    const text = "RETRY";
+    const textWidth = ctx.measureText(text).width;
+    ctx.fillText(text, this.pang.DIM_X/2 - textWidth/2 , this.pang.DIM_Y/2 + 200)
   };
 
   start() {
-    this.bindKeyHandlers();
     this.lastTime = 0;
+    this.bindKeyHandlers();
     // this.pang.addBubbles('big');
     // requestAnimationFrame(this.animate.bind(this));
   };
