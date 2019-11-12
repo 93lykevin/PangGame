@@ -13,13 +13,15 @@ export default class Bubble extends MovingObject {
     options.vel = options.vel || Util.randomVec(Bubble.SPEED);   // Need to change Util.randomVec(Bubble.SPEED). Or not... only change if I want Bubble to spawn with set directions
     options.acc = 5;
     super(options);
-    this.dir = 'down'
-    this.size = options.size || 'big'
+    this.dir = "down";
+    this.size = options.size || "big";
+    this.state = "alive"
   }
 
   collideWith(otherObject) {
     if (otherObject instanceof Player) {
       // this.pang.lives--;  // Remove 1 life, check if game is over --> end game, if not --> reset the level
+      document.getElementById("lives").innerHTML = parseInt(document.getElementById("lives").innerHTML) - 1
       if (this.pang.lives === 0 ) {
         this.pang.gameOver = true;
       } else {
@@ -27,6 +29,7 @@ export default class Bubble extends MovingObject {
       }
       return true;
     } else if (otherObject instanceof Bullet) {
+      this.state = "popping"
       document.getElementById("score").innerHTML = parseInt(document.getElementById("score").innerHTML) + 50
       this.split();   //Split the bubble
       otherObject.remove(); // remove the bullet
@@ -36,10 +39,19 @@ export default class Bubble extends MovingObject {
   }
 
   draw(ctx){
-    const img = new Image();
-    img.src = './assets/baloon1.png';
-    ctx.drawImage( img, this.pos[0]-this.radius, this.pos[1]-this.radius, this.radius*2, this.radius*2)
+    if (this.state === 'popping') {
+      const img = new Image();
+      img.src = './assets/baloons.png';
+      ctx.drawImage(img, 31.6, 0, this.radius*2, this.radius*2)
+      debugger
+    } else {
+      const img = new Image();
+      img.src = './assets/baloon1.png';
+      ctx.drawImage(img, this.pos[0]-this.radius, this.pos[1]-this.radius, this.radius*2, this.radius*2);
+
+    }
   }
+  
 
   move(timeDelta) {
     //timeDelta = number of ms since last call of move(
@@ -50,7 +62,6 @@ export default class Bubble extends MovingObject {
     const offsetX = this.vel[0] * velocityScale;
     const offsetY = this.vel[1] * velocityScale;
 
-    console.log(this.vel[1])
     if (this.vel[1] >= Bubble.MAX_VEL) this.vel[1] = Bubble.MAX_VEL;
     if (this.vel[0] >= Bubble.MAX_VEL) this.vel[0] = Bubble.MAX_VEL;
 

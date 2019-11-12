@@ -30,11 +30,11 @@ export default class GameView{
         player.moveLeft = false;
       }
     })
-
+    
+    key("z", () => {this.pang.gameOver = true})
     key("space", () => {player.fireBullet()})
 
-
-    document.addEventListener("keypress", (e) => this.playGame(e))
+    document.addEventListener("keypress", this.playGame)
   };
 
   playGame(e) {
@@ -43,7 +43,7 @@ export default class GameView{
       requestAnimationFrame(this.animate.bind(this));
       document.getElementById("instructions").style.display = "none";
       document.getElementById("canvas-w").style.visibility = "visible";
-      document.removeEventListener('click', this.playGame, false)
+      document.removeEventListener("keypress", this.playGame, false)
     } 
   }
 
@@ -91,6 +91,10 @@ export default class GameView{
     var text = "RETRY";
     var textWidth = ctx.measureText(text).width;
     ctx.fillText(text, this.pang.DIM_X/2 - textWidth/2 , this.pang.DIM_Y/2 + 300)
+    document.addEventListener('click', () => {
+      console.log("hi")
+      this.start()
+    })
   };
 
   start() {
