@@ -34,15 +34,17 @@ export default class GameView{
     key("space", () => {player.fireBullet()})
 
 
-    document.addEventListener("click", this.playGame)
+    document.addEventListener("keypress", (e) => this.playGame(e))
   };
 
-  playGame() {
-    this.pang.addBubbles('big');
-    requestAnimationFrame(this.animate.bind(this));
-    document.getElementById("instructions").style.display = "none";
-    document.getElementById("canvas-w").style.visibility = "visible";
-    document.removeEventListener('click', this.playGame, false)
+  playGame(e) {
+    if (e.keyCode === 13) {
+      this.pang.addBubbles('big');
+      requestAnimationFrame(this.animate.bind(this));
+      document.getElementById("instructions").style.display = "none";
+      document.getElementById("canvas-w").style.visibility = "visible";
+      document.removeEventListener('click', this.playGame, false)
+    } 
   }
 
   animate(time) {
