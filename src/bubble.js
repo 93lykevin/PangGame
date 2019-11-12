@@ -27,6 +27,7 @@ export default class Bubble extends MovingObject {
       }
       return true;
     } else if (otherObject instanceof Bullet) {
+      document.getElementById("score").innerHTML = parseInt(document.getElementById("score").innerHTML) + 50
       this.split();   //Split the bubble
       otherObject.remove(); // remove the bullet
       return true;
@@ -48,6 +49,10 @@ export default class Bubble extends MovingObject {
     const velocityScale = timeDelta / MovingObject.NORMAL_FRAME_TIME_DELTA;
     const offsetX = this.vel[0] * velocityScale;
     const offsetY = this.vel[1] * velocityScale;
+
+    console.log(this.vel[1])
+    if (this.vel[1] >= Bubble.MAX_VEL) this.vel[1] = Bubble.MAX_VEL;
+    if (this.vel[0] >= Bubble.MAX_VEL) this.vel[0] = Bubble.MAX_VEL;
 
     if (this.size === 'big' && this.pos[1] <= 200 && this.dir === 'up') {
       this.vel[1] += Bubble.ACCEL;
@@ -126,7 +131,7 @@ Bubble.COLORS = [
 ];
 Bubble.SIZE = ['big', 'medium', 'small', 'tiny'];
 Bubble.DIRS = ['down', 'up']
-Bubble.MIN_HEIGHT_BIG = 700;
+Bubble.MIN_HEIGHT_BIG = 675;
 Bubble.MIN_HEIGHT_MEDIUM = 750;
 Bubble.MIN_HEIGHT_SMALL = 770;
 Bubble.MIN_HEIGHT_TINY = 790;
@@ -135,3 +140,4 @@ Bubble.RADII = [75, 50, 25, 10];
 Bubble.SPEED = 3;
 Bubble.ACCEL = 0.15;
 Bubble.INIT_POS = [600, 600]
+Bubble.MAX_VEL = 13;
