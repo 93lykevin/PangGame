@@ -20,12 +20,12 @@ export default class Bubble extends MovingObject {
 
   collideWith(otherObject) {
     if (otherObject instanceof Player) {
-      // this.pang.lives--;  // Remove 1 life, check if game is over --> end game, if not --> reset the level
+      this.pang.lives--;  // Remove 1 life, check if game is over --> end game, if not --> reset the level
       document.getElementById("lives").innerHTML = parseInt(document.getElementById("lives").innerHTML) - 1
       if (this.pang.lives === 0 ) {
         this.pang.gameOver = true;
       } else {
-        // this.pang.resetLevel();
+        this.pang.resetLevel();
       }
       return true;
     } else if (otherObject instanceof Bullet) {
@@ -43,16 +43,13 @@ export default class Bubble extends MovingObject {
       const img = new Image();
       img.src = './assets/baloons.png';
       ctx.drawImage(img, 31.6, 0, this.radius*2, this.radius*2)
-      debugger
     } else {
       const img = new Image();
       img.src = './assets/baloon1.png';
       ctx.drawImage(img, this.pos[0]-this.radius, this.pos[1]-this.radius, this.radius*2, this.radius*2);
-
     }
   }
   
-
   move(timeDelta) {
     //timeDelta = number of ms since last call of move(
     //if computer is busy --> timeDelta will be larger

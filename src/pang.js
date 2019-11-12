@@ -32,7 +32,7 @@ export default class Pang {
   }
 
   addBubbles(size) {
-    for (let i = 0; i < Pang.NUM_BUBBLES; i++) {
+    for (let i = 0; i < this.level; i++) {
       this.add(new Bubble({ pang: this, size: size}))
     }
   }
@@ -100,7 +100,6 @@ export default class Pang {
     if (!this.bubbles.length) {
       this.level += 1;
       this.addBubbles();
-      // this.addBubbles();
     }
   }
 

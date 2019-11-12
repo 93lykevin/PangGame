@@ -11,6 +11,7 @@ export default class GameView{
     this.player = this.pang.addPlayer();
 
     this.playGame = this.playGame.bind(this);
+    this.resetGame = this.resetGame.bind(this);
   }
 
   bindKeyHandlers() {
@@ -32,7 +33,7 @@ export default class GameView{
       }
     })
     
-    key("z", () => {this.pang.gameOver = true})
+    // key("z", () => {this.pang.gameOver = true})
     key("space", () => {player.fireBullet()})
 
     document.addEventListener("keypress", this.playGame)
@@ -40,6 +41,7 @@ export default class GameView{
 
   playGame(e) {
     if (e.keyCode === 13) {
+      // console.log('play game');
       this.pang.addBubbles('big');
       requestAnimationFrame(this.animate.bind(this));
       document.getElementById("instructions").style.display = "none";
@@ -73,18 +75,20 @@ export default class GameView{
     document.addEventListener('keypress', this.resetGame)
   }
 
-  resetGame() {
-    console.log('reset game')
-    const pang = new Pang();
+  resetGame(e) {
+    // console.log('reset game')
+    //reset score and lives
+    document.getElementById("instructions").style.display = "flex"; 
+    document.getElementById("score").innerHTML = '0';               
+    document.getElementById("lives").innerHTML = '5';
+    //make new game
+    const pang = new Pang(); 
     const canvas = document.getElementById('game-canvas');
     const ctx = canvas.getContext("2d");
-    document.getElementById("score").innerHTML = '0';
-    document.getElementById("lives").innerHTML = '5';
     ctx.clearRect(0, 0, 1200, 800);
+    document.removeEventListener("keypress", this.resetGame); //remove this event listener
+    document.getElementById("canvas-w").style.visibility = "visible";
     new GameView(pang, ctx, canvas).start();
-    document.removeEventListener("keypress", this.resetGame, false)
-    // document.getElementById("instructions").style.display = "flex";
-    // document.getElementById("canvas-w").style.visibility = "visible";
   }
 
   drawGameOver(ctx) {
@@ -99,7 +103,7 @@ export default class GameView{
   }
 
   drawScore(ctx) {
-    ctx.font = "36px VT323";
+    ctx.font = "50px VT323";
     ctx.fillStyle = "#ff9";
     const score = document.getElementById("score").innerHTML
     const text = 'Your Score: ' + score;
@@ -110,7 +114,7 @@ export default class GameView{
   drawRetry(ctx) {
     ctx.font = "36px VT323";
     ctx.fillStyle = "#ff9";
-    const text = "RETRY";
+    const text = "Press Any Key to Play Again";
     const textWidth = ctx.measureText(text).width;
     ctx.fillText(text, this.pang.DIM_X/2 - textWidth/2 , this.pang.DIM_Y/2 + 200)
   };
